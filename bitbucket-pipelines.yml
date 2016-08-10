@@ -9,5 +9,5 @@ pipelines:
     - step:
         script: # Modify the commands below to build your repository.
           - dotnet restore
-          - dotnet build src
+          - dotnet build src/Pizza
 #          - dotnet test TestName

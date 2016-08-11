@@ -16,7 +16,7 @@ namespace City
         /// </summary>
         /// <param name="height">Height of the map</param>
         /// <param name="width">Width of the map</param>
-        public City(int height, int width)
+        public City(int width, int height)
         {
             Height = height;
             Width = width;

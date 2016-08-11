@@ -1,4 +1,5 @@
-﻿using Xunit;
+﻿using System.Collections.Generic;
+using Xunit;
 
 namespace CityTests
 {
@@ -164,6 +165,15 @@ namespace CityTests
 
             City.City c = new City.City("4*29");
             Assert.Equal(expectedHeight, c.Height);
+        }
+
+        [Fact]
+        public void GenerateStreetsTest()
+        {
+            City.City c = new City.City();
+            List<string> rows = c.GenerateStreets(15124);
+            string result = string.Join("\n", rows);
+            Assert.False(true);
         }
     }
 }

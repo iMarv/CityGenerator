@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
@@ -66,6 +67,38 @@ namespace City
             // Set height and width
             Width = width;
             Height = height;
+        }
+
+        /// <summary>
+        /// Generates a streetmap for a city
+        /// </summary>
+        /// <param name="seed">Seed for generation</param>
+        /// <returns>List of strings containing rows of a city</returns>
+        public List<string> GenerateStreets(int seed)
+        {
+            List<string> result = new List<string>();
+            for(int row = 0, rows = Height; row < rows; row++)
+            {
+                if(row == 0 || row % 3 == 0)
+                {
+                    result.Add(new string('#', Width));
+                    if(row + 1 < rows)
+                    {
+                        StringBuilder buildings = new StringBuilder(new string('O', Width));
+
+                        Random random = new Random(seed + row);
+
+                        for(int position = random.Next(2, 6); position < Width; position += random.Next(3, 7))
+                        {
+                            buildings[position] = '#';
+                        }
+                        
+                        result.AddRange(new List<string>() { buildings.ToString(), buildings.ToString() });
+                    }
+                }
+            }
+
+            return result;
         }
 
         /// <summary>

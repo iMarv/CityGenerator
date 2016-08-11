@@ -14,7 +14,7 @@ namespace City
         /// <summary>
         /// Default constructor
         /// </summary>
-        public City() : this(50)
+        public City() : this(31)
         { }
 
         /// <summary>
@@ -24,8 +24,9 @@ namespace City
         /// <param name="width">Width of the map</param>
         public City(int width, int height)
         {
-            Height = height;
+            sanitizeDimensions(width, height, out width, out height);
             Width = width;
+            Height = height;
         }
 
         /// <summary>
@@ -42,8 +43,8 @@ namespace City
         public City(string dimensionsSeperator)
         {
             // Set default values
-            int width = 50;
-            int height = 50;
+            int width = 31;
+            int height = 30;
 
             // (?<width>\d{1,})[x\*](?<height>\d{1,})
             // (?<width>\d{1,})                         Named capture group containing width
@@ -53,16 +54,44 @@ namespace City
             Match match = rgxSeperatorString.Match(dimensionsSeperator);
 
             // If match is successful
-            if(match.Success)
+            if (match.Success)
             {
                 // Try to parse results into ints
                 int.TryParse(match.Groups["width"].Value, out width);
                 int.TryParse(match.Groups["height"].Value, out height);
             }
 
+            sanitizeDimensions(width, height, out width, out height);
+
             // Set height and width
             Width = width;
             Height = height;
+        }
+
+        /// <summary>
+        /// Fixes the dimensions to fit the rendering process
+        /// </summary>
+        /// <param name="width">Given width</param>
+        /// <param name="height">Given height</param>
+        private void sanitizeDimensions(int width, int height, out int oWidth, out int oHeight)
+        {
+            if (width < 3)
+            {
+                width = 3;
+            }
+
+            if(height < 7)
+            {
+                height = 7;
+            }
+
+            while (((height - 1) % 3) > 0)
+            {
+                height++;
+            }
+
+            oWidth = width;
+            oHeight = height;
         }
     }
 }

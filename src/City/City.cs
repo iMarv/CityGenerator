@@ -14,11 +14,8 @@ namespace City
         /// <summary>
         /// Default constructor
         /// </summary>
-        public City()
-        {
-            Height = 50;
-            Width = 50;
-        }
+        public City() : this(50)
+        { }
 
         /// <summary>
         /// Constructor taking height and width of city

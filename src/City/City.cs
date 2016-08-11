@@ -12,6 +12,15 @@ namespace City
         public int Width { get; set; }
 
         /// <summary>
+        /// Default constructor
+        /// </summary>
+        public City()
+        {
+            Height = 50;
+            Width = 50;
+        }
+
+        /// <summary>
         /// Constructor taking height and width of city
         /// </summary>
         /// <param name="height">Height of the map</param>

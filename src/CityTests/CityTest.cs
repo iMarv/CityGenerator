@@ -5,6 +5,24 @@ namespace CityTests
     public class CityTest
     {
         [Fact]
+        public void CityConstructorTest0Width()
+        {
+            int expectedWidth = 50;
+
+            City.City c = new City.City();
+            Assert.Equal(expectedWidth, c.Width);
+        }
+
+        [Fact]
+        public void CityConstructorTest0Height()
+        {
+            int expectedHeight = 50;
+
+            City.City c = new City.City();
+            Assert.Equal(expectedHeight, c.Height);
+        }
+
+        [Fact]
         public void CityConstructorTest1Width()
         {
             int expectedWidth = 4;

@@ -77,22 +77,32 @@ namespace City
         public List<string> GenerateStreets(int seed)
         {
             List<string> result = new List<string>();
+            // Iterate through all rows
             for(int row = 0, rows = Height; row < rows; row++)
             {
+                // If it is the first row or the row is divideable by 3
                 if(row == 0 || row % 3 == 0)
                 {
+                    // Add street to result
                     result.Add(new string('#', Width));
-                    if(row + 1 < rows)
+
+                    // If this is not the last row
+                    if (row + 1 < rows)
                     {
+                        // Create a building row
                         StringBuilder buildings = new StringBuilder(new string('O', Width));
 
+                        // create a random generator with seed and row
                         Random random = new Random(seed + row);
 
+                        // Iterate through row while the position is still contained in the width
                         for(int position = random.Next(2, 6); position < Width; position += random.Next(3, 7))
                         {
+                            // Add a street a given position
                             buildings[position] = '#';
                         }
                         
+                        // Add two buildingrows
                         result.AddRange(new List<string>() { buildings.ToString(), buildings.ToString() });
                     }
                 }
@@ -108,16 +118,19 @@ namespace City
         /// <param name="height">Given height</param>
         private void sanitizeDimensions(int width, int height, out int oWidth, out int oHeight)
         {
+            // If width is too low, set default value
             if (width < 3)
             {
                 width = 3;
             }
 
+            // If height is too low, set default value
             if(height < 7)
             {
                 height = 7;
             }
 
+            // Add to height until it fits to map generation process
             while (((height - 1) % 3) > 0)
             {
                 height++;

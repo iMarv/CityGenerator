@@ -9,9 +9,12 @@ namespace City
 {
     public class City
     {
+        #region Properties
         public int Height { get; set; }
         public int Width { get; set; }
+        #endregion
 
+        #region Constructor
         /// <summary>
         /// Default constructor
         /// </summary>
@@ -68,20 +71,22 @@ namespace City
             Width = width;
             Height = height;
         }
+        #endregion
 
+        #region Methods
         /// <summary>
         /// Generates a streetmap for a city
         /// </summary>
         /// <param name="seed">Seed for generation</param>
         /// <returns>List of strings containing rows of a city</returns>
-        public List<string> GenerateStreets(int seed)
+        public string GenerateStreets(int seed)
         {
             List<string> result = new List<string>();
             // Iterate through all rows
-            for(int row = 0, rows = Height; row < rows; row++)
+            for (int row = 0, rows = Height; row < rows; row++)
             {
                 // If it is the first row or the row is divideable by 3
-                if(row == 0 || row % 3 == 0)
+                if (row == 0 || row % 3 == 0)
                 {
                     // Add street to result
                     result.Add(new string('#', Width));
@@ -96,19 +101,58 @@ namespace City
                         Random random = new Random(seed + row);
 
                         // Iterate through row while the position is still contained in the width
-                        for(int position = random.Next(2, 6); position < Width; position += random.Next(3, 7))
+                        for (int position = random.Next(2, 6); position < Width; position += random.Next(3, 7))
                         {
                             // Add a street a given position
                             buildings[position] = '#';
                         }
-                        
+
                         // Add two buildingrows
                         result.AddRange(new List<string>() { buildings.ToString(), buildings.ToString() });
                     }
                 }
             }
 
-            return result;
+            return string.Join("\n", result);
+        }
+
+        /// <summary>
+        /// Adds special buildings to an empty city map
+        /// </summary>
+        /// <param name="specialBuildings">Dictionary containing special buldings. The key is the identifying char of the building, the spawnchance in percent</param>
+        /// <param name="renderedCity">City to add buildings to</param>
+        /// <param name="seed">Seed for generating buildings</param>
+        /// <returns>Modified city</returns>
+        public string AddSpecialBuildings(Dictionary<char, byte> specialBuildings, string renderedCity = null, int seed = 1)
+        {
+            // If no city is defined
+            if (string.IsNullOrEmpty(renderedCity))
+            {
+                // Generate a city
+                Random r = new Random(seed);
+                renderedCity = GenerateStreets(r.Next());
+            }
+
+            // If no special buildings are given, return city unchanged
+            if (specialBuildings.Count == 0)
+            {
+                return renderedCity;
+            }
+
+            // Turn city into charArray
+            char[] cityChars = renderedCity.ToCharArray();
+
+            // Cycle through all KeyValuePairs, ordered by Value ascending
+            foreach (KeyValuePair<char, byte> kvp in specialBuildings.OrderBy(key => key.Value))
+            {
+                Random r = new Random(seed);
+                // Do the following for all normal buildings in the city
+                // If a random seeded number is smaller or equal to the propability of the spawn, change the building into the new one
+                cityChars = cityChars.Select(c => c == 'O' ? (r.Next(0, 100) <= kvp.Value ? kvp.Key : c) : c).ToArray();
+            }
+
+            // Return new city
+            return new string(cityChars);
         }
 
         /// <summary>
@@ -125,7 +169,7 @@ namespace City
             }
 
             // If height is too low, set default value
-            if(height < 7)
+            if (height < 7)
             {
                 height = 7;
             }
@@ -139,5 +183,6 @@ namespace City
             oWidth = width;
             oHeight = height;
         }
+        #endregion
     }
 }

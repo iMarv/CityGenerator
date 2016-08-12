@@ -9,6 +9,8 @@ namespace City
 {
     public class City
     {
+        private static readonly byte DefaultDimension = 31; 
+
         #region Properties
         public int Height { get; set; }
         public int Width { get; set; }
@@ -18,7 +20,7 @@ namespace City
         /// <summary>
         /// Default constructor
         /// </summary>
-        public City() : this(31)
+        public City() : this(DefaultDimension)
         { }
 
         /// <summary>
@@ -47,8 +49,8 @@ namespace City
         public City(string dimensionsSeperator)
         {
             // Set default values
-            int width = 31;
-            int height = 30;
+            int width, height;
+            width = height = DefaultDimension;
 
             // (?<width>\d{1,})[x\*](?<height>\d{1,})
             // (?<width>\d{1,})                         Named capture group containing width

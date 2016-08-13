@@ -225,5 +225,16 @@ namespace CityTests
 
             Assert.Equal(expected, city);
         }
+
+        [Fact]
+        public void MergeBuildingsTest()
+        {
+            string expected = "##################################################\nOO#OO#OOO#OOOOO#OOOO#OOO#OOO#OOOOO#OO#OOOO#OO#OO#O\nOO#OO#OOO#OOOOO#OOOO#OOO#OOO#OOOOO#OO#OOOO#OO#OO#O\n###OO################OO###########################\nOOOOO#OOOOO#OOOO#OOO#OO#OO#OOOO#OOO#OOO#OOOO#OO#OO\nOOOOO#OOOOO#OOOO#OOO#OO#OO#OOOO#OOO#OOO#OOOO#OO#OO\n########################OO###################OO###\nOOO#OOOOO#OOOO#OO#OOO#OOOO#OO#OOOOO#OOOOO#OOOOO#OO\nOOO#OOOOO#OOOO#OO#OOO#OOOO#OO#OOOOO#OOOOO#OOOOO#OO\n##################################################\nOOOOO#OOOOO#OOOOO#OOOO#OOOO#OOO#OOO#OOO#OO#OOOOO#O\nOOOOO#OOOOO#OOOOO#OOOO#OOOO#OOO#OOO#OOO#OO#OOOOO#O\n####################OO##################OO###OO###\nOOOO#OOOO#OOOOO#OOO#OO#OOOOO#OOOO#OOOOO#OOOO#OO#OO\nOOOO#OOOO#OOOOO#OOO#OO#OOOOO#OOOO#OOOOO#OOOO#OO#OO\n####################OO#######OO###########OO#OO###\nOO#OOOO#OOOOO#OOOOO#OOO#OOOO#OO#OOO#OOOOO#OO#OO#OO\nOO#OOOO#OOOOO#OOOOO#OOO#OOOO#OO#OOO#OOOOO#OO#OO#OO\n#########OO#######################################\nOOOO#OOO#OO#OOOO#OOOOO#OO#OOO#OOOOO#OOO#OOO#OOO#OO\nOOOO#OOO#OO#OOOO#OOOOO#OO#OOO#OOOOO#OOO#OOO#OOO#OO\n##############OO#######OO#########################\nOO#OOO#OO#OOO#OO#OOOOO#OOOOO#OOO#OOOO#OOO#OOO#OOOO\nOO#OOO#OO#OOO#OO#OOOOO#OOOOO#OOO#OOOO#OOO#OOO#OOOO\n##############OO##########OO#######OO#############\nOOOOO#OO#OO#OOOOO#OOO#OOO#OO#OOOOO#OO#OOO#OOOO#OOO\nOOOOO#OO#OO#OOOOO#OOO#OOO#OO#OOOOO#OO#OOO#OOOO#OOO\n######################OO##OO######################\nOOO#OO#OOO#OOOO#OOOOO#OO#OOO#OOO#OOO#OOOO#OOOOO#OO\nOOO#OO#OOO#OOOO#OOOOO#OO#OOO#OOO#OOO#OOOO#OOOOO#OO\n################OO####OO##########################\nOOOOO#OOOOO#OOO#OO#OO#OOOO#OOOOO#OOOOO#OOOOO#OOOO#\nOOOOO#OOOOO#OOO#OO#OO#OOOO#OOOOO#OOOOO#OOOOO#OOOO#\n################OO############OO##################\nOOO#OOOOO#OOOO#OOOOO#OOOO#OOO#OO#OOO#OO#OOOOO#OOO#\nOOO#OOOOO#OOOO#OOOOO#OOOO#OOO#OO#OOO#OO#OOOOO#OOO#\n##############################OO#OO##OO###########\nOO#OOOO#OOOO#OOO#OOOOO#OOOOO#OOO#OO#OOOO#OOOOO#OOO\nOO#OOOO#OOOO#OOO#OOOOO#OOOOO#OOO#OO#OOOO#OOOOO#OOO\n#################################OO#########OO####\nOOOO#OOOO#OOOO#OO#OOO#OOOO#OOOOO#OOOO#OOOOO#OO#OOO\nOOOO#OOOO#OOOO#OO#OOO#OOOO#OOOOO#OOOO#OOOOO#OO#OOO\n###############OO######OO####OO###################\nOO#OOO#OOOOO#OOOO#OOOO#OO#OO#OO#OOO#OO#OOOOO#OO#OO\nOO#OOO#OOOOO#OOOO#OOOO#OO#OO#OO#OOO#OO#OOOOO#OO#OO\n#######################OO####OO###################\nOOOOO#OOO#OOOOO#OOO#OOOOO#OOOOO#OOOO#OOOO#OOOO#OO#\nOOOOO#OOO#OOOOO#OOO#OOOOO#OOOOO#OOOO#OOOO#OOOO#OO#\n##########OO###############OO##################OO#\nOOO#OO#OO#OO#OOO#OOO#OOOOO#OO#OO#OOO#OOO#OOOO#OOO#\nOOO#OO#OO#OO#OOO#OOO#OOOOO#OO#OO#OOO#OOO#OOOO#OOO#\n##################################################";
+            City.City c = new City.City(50);
+            string city = c.GenerateStreets(1);
+            city = c.MergeBuildings(city);
+
+            Assert.Equal(expected, city);
+        }
     }
 }

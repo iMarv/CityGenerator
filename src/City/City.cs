@@ -32,14 +32,19 @@ namespace City
         internal int[] getEmptyRowNumbers()
         {
             List<int> result = new List<int>();
+
+            // Iterate through all possible rows defined by height
             for(int row = 0; row < Height; row++)
             {
+                // If there are no squares that have a Y-Value for this row
                 if(_squares.Where(s => s.Y == row).ToArray().Length == 0)
                 {
+                    // Add current row to result
                     result.Add(row);
                 }
             }
 
+            // Return result as int array
             return result.ToArray<int>();
         }
 

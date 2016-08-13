@@ -58,5 +58,29 @@ namespace City
         {
             return ((IEnumerable<Square>)_squares).GetEnumerator();
         }
+
+        /// <summary>
+        /// Renders city to string
+        /// </summary>
+        /// <returns>City as string, each square represented by its symbol</returns>
+        public override string ToString()
+        {
+            List<string> result = new List<string>();
+
+            // Iterate through all rows
+            for (int row = 0; row < Height; row++)
+            {
+                result.Add(string.Join("",
+                    // Gather all squares in the current row
+                    _squares.Where(s => s.Y == row)
+                        // Convert them to strings
+                        .Select(s => s.ToString())
+                            // Turn resulting strings into an array
+                            .ToArray<string>()));
+            }
+
+            // Join all rows, seperated by a linebreak
+            return string.Join(Environment.NewLine, result);
+        }
     }
 }

@@ -127,11 +127,12 @@ namespace City
         /// <returns>Modified city</returns>
         public string AddSpecialBuildings(Dictionary<char, byte> specialBuildings, string renderedCity = null, int seed = 1)
         {
+            Random r = new Random(seed);
+
             // If no city is defined
             if (string.IsNullOrEmpty(renderedCity))
             {
                 // Generate a city
-                Random r = new Random(seed);
                 renderedCity = GenerateStreets(r.Next());
             }
 
@@ -147,7 +148,6 @@ namespace City
             // Cycle through all KeyValuePairs, ordered by Value ascending
             foreach (KeyValuePair<char, byte> kvp in specialBuildings.OrderBy(key => key.Value))
             {
-                Random r = new Random(seed);
                 // Do the following for all normal buildings in the city
                 // If a random seeded number is smaller or equal to the propability of the spawn, change the building into the new one
                 cityChars = cityChars.Select(c => c == 'O' ? (r.Next(0, 100) <= kvp.Value ? kvp.Key : c) : c).ToArray();

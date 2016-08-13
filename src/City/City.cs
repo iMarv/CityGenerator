@@ -23,7 +23,7 @@ namespace City
         {
             _squares.Add(square);
         }
-        
+
         public IEnumerator<Square> GetEnumerator() => _squares.GetEnumerator();
 
         IEnumerator IEnumerable.GetEnumerator()

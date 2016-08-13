@@ -15,7 +15,15 @@ namespace City
         public byte Rarity
         {
             get { return _rarity; }
-            private set { _rarity = value > 100 ? (byte)100 : value; }
+            // Forces rarity to be a value between 0 and 100
+            private set {
+                if (value > 100)
+                    _rarity = 100;
+                else if (value < 0)
+                    _rarity = 0;
+                else
+                    _rarity = value;
+            }
         }
 
         /// <summary>

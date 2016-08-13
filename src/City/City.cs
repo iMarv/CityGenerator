@@ -26,6 +26,24 @@ namespace City
         private readonly List<Square> _squares = new List<Square>();
 
         /// <summary>
+        /// Gathers the numbers of empty rows
+        /// </summary>
+        /// <returns>Numbers of empty rows as array</returns>
+        internal int[] getEmptyRowNumbers()
+        {
+            List<int> result = new List<int>();
+            for(int row = 0; row < Height; row++)
+            {
+                if(_squares.Where(s => s.Y == row).ToArray().Length == 0)
+                {
+                    result.Add(row);
+                }
+            }
+
+            return result.ToArray<int>();
+        }
+
+        /// <summary>
         /// Constructor, sets maximum bounds
         /// </summary>
         /// <param name="width">Width of the City</param>

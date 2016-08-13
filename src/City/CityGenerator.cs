@@ -19,6 +19,40 @@ namespace City
         {
             height = sanitizeHeight(height);
             width = width < 4 ? 4 : width;
+
+
+        }
+
+        /// <summary>
+        /// Connects horizontal streets of a city
+        /// </summary>
+        /// <param name="city">City to connect streets of</param>
+        /// <param name="seed">Seed for random</param>
+        /// <returns>Modified city</returns>
+        private static City connectStreets(City city, int seed)
+        {
+            Random r = new Random(seed);
+            int[] emptyRows = city.getEmptyRowNumbers();
+
+            // Iterate through the array of emptyRows
+            for (int i = 0, length = emptyRows.Length; i < length; i += 2)
+            {
+                // Set original position
+                int position = r.Next(2, 5);
+
+                // While the position does not exceed the cities width
+                while (position < city.Width)
+                {
+                    // Add a street at the given position in the current and the next row
+                    city.Add(new Street(position, emptyRows[i]));
+                    city.Add(new Street(position, emptyRows[i + 1]));
+
+                    // Add random amount to position
+                    position += r.Next(3, 6);
+                }
+            }
+
+            return city;
         }
 
         /// <summary>

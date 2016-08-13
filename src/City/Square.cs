@@ -1,6 +1,6 @@
 ﻿namespace City
 {
-    abstract class Square
+    public abstract class Square
     {
         /// <summary>
         /// Get the Symbol of the Square

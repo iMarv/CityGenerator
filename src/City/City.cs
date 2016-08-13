@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace City
 {
-    class City : IEnumerable<Square>
+    public class City : IEnumerable<Square>
     {
         /// <summary>
         /// List of squares in the city

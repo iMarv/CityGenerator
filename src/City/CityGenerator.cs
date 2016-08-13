@@ -1,0 +1,67 @@
+﻿using City.BuildingTypes;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+
+namespace City
+{
+    public class CityGenerator
+    {
+        /// <summary>
+        /// Generates a city
+        /// </summary>
+        /// <param name="width">Width of the map</param>
+        /// <param name="height">Height of the map</param>
+        /// <param name="seed">Seed for generating, defaults to 14091994</param>
+        /// <returns>City object</returns>
+        public static City BuildCity(int width, int height, int seed = 14091994)
+        {
+            height = sanitizeHeight(height);
+            width = width < 4 ? 4 : width;
+        }
+
+        /// <summary>
+        /// Creates a city containing horizontal streets
+        /// </summary>
+        /// <param name="city">City containing streets</param>
+        private static City fillHorizontalStreets(int width, int height)
+        {
+            City city = new City(width, height);
+
+            // Iterate through all rows of the city
+            for (int row = 0; row < height; row++)
+            {
+                // If this is the first row or the row is divisible by 3 without a rest
+                if (row == 0 || row % 3 == 0)
+                {
+                    // Add a street over the full with of the city
+                    for (int column = 0; column < width; column++)
+                    {
+                        city.Add(new Street(column, row));
+                    }
+                }
+            }
+
+            // Return the city
+            return city;
+        }
+
+        /// <summary>
+        /// Modifies height to fit rendering process
+        /// </summary>
+        /// <param name="height">Height to modify</param>
+        /// <returns>Number decremented by one that is divisble by 3 without rest</returns>
+        private static int sanitizeHeight(int height)
+        {
+            int result = height > 1 ? height : 2;
+
+            while ((result - 1) % 3 > 0)
+            {
+                result += 1;
+            }
+
+            return result;
+        }
+    }
+}

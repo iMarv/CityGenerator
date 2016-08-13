@@ -7,6 +7,6 @@ namespace City.BuildingTypes
 {
     class School : Building
     {
-        public School(int x, int y, byte rarity) : base('S', x, y, rarity) { }
+        public School(int x, int y) : base('S', x, y) { }
     }
 }

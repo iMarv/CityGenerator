@@ -37,6 +37,34 @@
         }
 
         /// <summary>
+        /// Gets the Square above the current one
+        /// </summary>
+        /// <param name="distance">Distance of the desired square, defaults to 1</param>
+        /// <returns>Square above the current square with a given distance</returns>
+        public Square GetAbove(int distance = 1) => _parentCity.GetAtPosition(X, Y + distance);
+
+        /// <summary>
+        /// Gets the Square below the current one
+        /// </summary>
+        /// <param name="distance">Distance of the desired square, defaults to 1</param>
+        /// <returns>Square below the current square with a given distance</returns>
+        public Square GetBelow(int distance = 1) => _parentCity.GetAtPosition(X, Y - distance);
+
+        /// <summary>
+        /// Gets the Square to the left of the current one
+        /// </summary>
+        /// <param name="distance">Distance of the desired square, defaults to 1</param>
+        /// <returns>Square to the left of the current square with a given distance</returns>
+        public Square GetLeft(int distance = 1) => _parentCity.GetAtPosition(X - distance, Y);
+
+        /// <summary>
+        /// Gets the Square to the right of the current one
+        /// </summary>
+        /// <param name="distance">Distance of the desired square, defaults to 1</param>
+        /// <returns>Square to the left of the current square with a given distance</returns>
+        public Square GetRight(int distance = 1) => _parentCity.GetAtPosition(X + distance, Y);
+
+        /// <summary>
         /// Turns Square into String
         /// </summary>
         /// <returns>Symbol as string</returns>

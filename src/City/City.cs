@@ -71,9 +71,11 @@ namespace City
             }
             else
             {
-                _squares.Remove(
-                    _squares.Where(s => s.X == square.X && s.Y == square.Y).First()
-                );
+                Square[] squareAtPosition = _squares.Where(s => s.X == square.X && s.Y == square.Y).ToArray<Square>();
+                if(squareAtPosition.Length > 0)
+                {
+                    _squares.Remove(squareAtPosition.First<Square>());
+                }
                 _squares.Add(square);
             }
         }
@@ -99,10 +101,11 @@ namespace City
                 result.Add(string.Join("",
                     // Gather all squares in the current row
                     _squares.Where(s => s.Y == row)
-                        // Convert them to strings
-                        .Select(s => s.ToString())
-                            // Turn resulting strings into an array
-                            .ToArray<string>()));
+                        .OrderBy(s => s.X)
+                            // Convert them to strings
+                            .Select(s => s.ToString())
+                                // Turn resulting strings into an array
+                                .ToArray<string>()));
             }
 
             // Join all rows, seperated by a linebreak

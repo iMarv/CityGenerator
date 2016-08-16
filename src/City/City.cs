@@ -101,6 +101,7 @@ namespace City
                 result.Add(string.Join("",
                     // Gather all squares in the current row
                     _squares.Where(s => s.Y == row)
+                        // Order by X-Position
                         .OrderBy(s => s.X)
                             // Convert them to strings
                             .Select(s => s.ToString())

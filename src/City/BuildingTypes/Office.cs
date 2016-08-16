@@ -7,6 +7,6 @@ namespace City.BuildingTypes
 {
     class Office : Building
     {
-        public Office(int x, int y) : base('.', x, y) { }
+        public Office(int x, int y, City parent) : base('.', x, y, parent) { }
     }
 }

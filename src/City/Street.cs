@@ -7,6 +7,6 @@ namespace City
 {
     class Street : Square
     {
-        public Street(int x, int y) : base('#', x, y) { }
+        public Street(int x, int y, City parent) : base('#', x, y, parent) { }
     }
 }

@@ -7,6 +7,6 @@ namespace City.BuildingTypes
 {
     class PoliceStation : Building
     {
-        public PoliceStation(int x, int y) : base('P', x, y) { }
+        public PoliceStation(int x, int y, City parent) : base('P', x, y, parent) { }
     }
 }

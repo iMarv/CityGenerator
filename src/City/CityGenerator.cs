@@ -42,16 +42,16 @@ namespace City
 
                 for (int column = 0, width = city.Width; column < width; column++)
                 {
-                    city.Add(new Appartment(column, emptyRows[i]));
-                    city.Add(new Appartment(column, emptyRows[i + 1]));
+                    city.Add(new Appartment(column, emptyRows[i], city));
+                    city.Add(new Appartment(column, emptyRows[i + 1], city));
                 }
 
                 // While the position does not exceed the cities width
                 while (position < city.Width)
                 {
                     // Add a street at the given position in the current and the next row
-                    city.Add(new Street(position, emptyRows[i]));
-                    city.Add(new Street(position, emptyRows[i + 1]));
+                    city.Add(new Street(position, emptyRows[i], city));
+                    city.Add(new Street(position, emptyRows[i + 1], city));
 
                     // Add random amount to position
                     position += r.Next(3, 6);
@@ -78,7 +78,7 @@ namespace City
                     // Add a street over the full with of the city
                     for (int column = 0; column < width; column++)
                     {
-                        city.Add(new Street(column, row));
+                        city.Add(new Street(column, row, city));
                     }
                 }
             }

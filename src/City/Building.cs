@@ -14,7 +14,7 @@ namespace City
         /// <param name="x">X-Position of the Building</param>
         /// <param name="y">Y-Position of the Building</param>
         /// <param name="rarity">Rarity of the Building</param>
-        protected Building(char symbol, int x, int y) : base(symbol, x, y)
+        protected Building(char symbol, int x, int y, City parent) : base(symbol, x, y, parent)
         { }
     }
 }

@@ -7,6 +7,6 @@ namespace City.BuildingTypes
 {
     class Hospital : Building
     {
-        public Hospital(int x, int y) : base('H', x, y) { }
+        public Hospital(int x, int y, City parent) : base('H', x, y, parent) { }
     }
 }

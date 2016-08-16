@@ -73,19 +73,39 @@ namespace City
             }
             else
             {
-                // Gather squares at the given position
-                Square[] squareAtPosition = _squares.Where(s => s.X == square.X && s.Y == square.Y).ToArray<Square>();
-
+                Square squareAtPosition = GetAtPosition(square.X, square.Y);
                 // If there are squares at the given position, delete the first (only one is supposed to be there anyways)
-                if (squareAtPosition.Length > 0)
+                if (squareAtPosition != null)
                 {
                     // Remove square at the given position
-                    _squares.Remove(squareAtPosition.First<Square>());
+                    _squares.Remove(squareAtPosition);
                 }
 
                 // Add new square
                 _squares.Add(square);
             }
+        }
+
+        /// <summary>
+        /// Retrieves a square at a given position
+        /// </summary>
+        /// <param name="x">X-Position of the square</param>
+        /// <param name="y">Y-Position of the square</param>
+        /// <returns>Square with matching coordinates</returns>
+        public Square GetAtPosition(int x, int y)
+        {
+            // Gather all squares at the given position
+            Square[] result = _squares.Where(s => s.X == x && s.Y == y).ToArray<Square>();
+
+            // If there is a square at the given position
+            if (result.Length > 0)
+            {
+                // Return the square
+                return result.First<Square>();
+            }
+
+            // Return null if no squares were found
+            return null;
         }
 
         public IEnumerator<Square> GetEnumerator() => _squares.GetEnumerator();

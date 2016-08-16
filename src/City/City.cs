@@ -71,6 +71,9 @@ namespace City
             }
             else
             {
+                _squares.Remove(
+                    _squares.Where(s => s.X == square.X && s.Y == square.Y).First()
+                );
                 _squares.Add(square);
             }
         }

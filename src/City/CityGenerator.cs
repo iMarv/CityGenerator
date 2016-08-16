@@ -20,7 +20,7 @@ namespace City
             height = sanitizeHeight(height);
             width = width < 4 ? 4 : width;
 
-
+            return connectStreets(fillHorizontalStreets(width, height), seed);
         }
 
         /// <summary>
@@ -39,6 +39,12 @@ namespace City
             {
                 // Set original position
                 int position = r.Next(2, 5);
+
+                for (int column = 0, width = city.Width; column < width; column++)
+                {
+                    city.Add(new Appartment(column, emptyRows[i]));
+                    city.Add(new Appartment(column, emptyRows[i + 1]));
+                }
 
                 // While the position does not exceed the cities width
                 while (position < city.Width)

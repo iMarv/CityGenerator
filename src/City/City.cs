@@ -65,17 +65,25 @@ namespace City
         /// <param name="square">Square to add</param>
         public void Add(Square square)
         {
+            // If the added square exceeds the boundaries of the city
             if (square.X > Width - 1 || square.Y > Height - 1)
             {
+                // Throw exception
                 throw new SquareIndexOutOfBoundsException();
             }
             else
             {
+                // Gather squares at the given position
                 Square[] squareAtPosition = _squares.Where(s => s.X == square.X && s.Y == square.Y).ToArray<Square>();
-                if(squareAtPosition.Length > 0)
+
+                // If there are squares at the given position, delete the first (only one is supposed to be there anyways)
+                if (squareAtPosition.Length > 0)
                 {
+                    // Remove square at the given position
                     _squares.Remove(squareAtPosition.First<Square>());
                 }
+
+                // Add new square
                 _squares.Add(square);
             }
         }

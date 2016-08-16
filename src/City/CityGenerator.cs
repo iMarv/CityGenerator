@@ -40,8 +40,10 @@ namespace City
                 // Set original position
                 int position = r.Next(2, 5);
 
+                // Iterate through all possible spots in a row
                 for (int column = 0, width = city.Width; column < width; column++)
                 {
+                    // Add an appartment on every possible spot
                     city.Add(new Appartment(column, emptyRows[i], city));
                     city.Add(new Appartment(column, emptyRows[i + 1], city));
                 }

@@ -20,8 +20,44 @@ namespace City
             height = sanitizeHeight(height);
             width = width < 4 ? 4 : width;
 
-            return connectStreets(fillHorizontalStreets(width, height), seed);
+            return initiateMap(width, height, seed);
         }
+
+        /// <summary>
+        /// Turns streets between Buildings into appartments
+        /// </summary>
+        /// <param name="city">City to modify</param>
+        /// <returns>Modified city</returns>
+        private static City mergeBuildings(City city)
+        {
+            // Create new object for return
+            City result = city;
+
+            // Gather squares that are streets and have building above and below
+            city.Where(s => s is Street)
+                // Cast these squares into streets
+                .Select(s => (Street)s)
+                .Where(s => isRightTile(s) ^ isLeftTile(s))
+                // Turn into list
+                .ToList<Street>()
+                // For every object in the list, add an appartment to the city, overwriting the original streets
+                .ForEach(s => result.AddRange(new List<Square>() { new Appartment(s.X, s.Y, result), new Appartment(s.X + (isRightTile(s) ? -1 : 1), s.Y, result) }));
+            return result;
+        }
+
+        /// <summary>
+        /// Checks if street has a building above, above-right, below and below-right itself
+        /// </summary>
+        /// <param name="s">Street to check</param>
+        /// <returns>True if yes, false if no</returns>
+        private static bool isLeftTile(Street s) => s.GetAbove() is Building && s.GetAbove().GetRight() is Building && s.GetBelow() is Building && s.GetBelow().GetRight() is Building;
+
+        /// <summary>
+        /// Checks if street has a building above, above-right, below and below-right itself
+        /// </summary>
+        /// <param name="s">Street to check</param>
+        /// <returns>True if yes, false if no</returns>
+        private static bool isRightTile(Street s) => s.GetAbove() is Building && s.GetAbove().GetLeft() is Building && s.GetBelow() is Building && s.GetBelow().GetLeft() is Building;
 
         /// <summary>
         /// Connects horizontal streets of a city
@@ -60,14 +96,14 @@ namespace City
                 }
             }
 
-            return city;
+            return mergeBuildings(city);
         }
 
         /// <summary>
         /// Creates a city containing horizontal streets
         /// </summary>
         /// <param name="city">City containing streets</param>
-        private static City fillHorizontalStreets(int width, int height)
+        private static City fillHorizontalStreets(int width, int height, int seed)
         {
             City city = new City(width, height);
 
@@ -86,7 +122,19 @@ namespace City
             }
 
             // Return the city
-            return city;
+            return connectStreets(city, seed);
+        }
+
+        /// <summary>
+        /// Initiates city creation process
+        /// </summary>
+        /// <param name="width">Width of the city</param>
+        /// <param name="height">Height of the city</param>
+        /// <param name="seed">Seed for generation</param>
+        /// <returns>Generated city</returns>
+        private static City initiateMap(int width, int height, int seed)
+        {
+            return fillHorizontalStreets(width, height, seed);
         }
 
         /// <summary>

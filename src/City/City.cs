@@ -87,6 +87,18 @@ namespace City
         }
 
         /// <summary>
+        /// Add an Array of squares to the city
+        /// </summary>
+        /// <param name="squares">Squares to add</param>
+        public void AddRange(List<Square> squares)
+        {
+            foreach(Square s in squares)
+            {
+                this.Add(s);
+            }
+        }
+
+        /// <summary>
         /// Retrieves a square at a given position
         /// </summary>
         /// <param name="x">X-Position of the square</param>
@@ -107,7 +119,7 @@ namespace City
             // Return null if no squares were found
             return null;
         }
-
+        
         public IEnumerator<Square> GetEnumerator() => _squares.GetEnumerator();
 
         IEnumerator IEnumerable.GetEnumerator()

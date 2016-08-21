@@ -9,6 +9,12 @@ namespace City
 {
     public class CityGenerator
     {
+        private static readonly Dictionary<string, int> buildingsDefaultConfig = new Dictionary<string, int>()
+        {
+            {"Hospital", 50 },
+            {"Office", 25 }
+        };
+
         /// <summary>
         /// Generates a city
         /// </summary>
@@ -20,8 +26,13 @@ namespace City
         {
             height = sanitizeHeight(height);
             width = width < 4 ? 4 : width;
+            Random r = new Random(seed);
+            return initiateMap(width, height, r);
+        }
 
-            return initiateMap(width, height, seed);
+        private static City addSpecialBuildings(City city, Dictionary<string, int> config)
+        {
+            
         }
 
         /// <summary>
@@ -58,7 +69,7 @@ namespace City
             city.Where(s => isSurroundedByBuildings(s) && s is Building).Select(s => (Appartment)s).ToList<Appartment>().ForEach(a => result.Add(new Park(a.X, a.Y, result)));
             return result;
         }
-        
+
         /// <summary>
         /// Checks if a Square is surrounded by buildings
         /// </summary>
@@ -96,9 +107,8 @@ namespace City
         /// <param name="city">City to connect streets of</param>
         /// <param name="seed">Seed for random</param>
         /// <returns>Modified city</returns>
-        private static City connectStreets(City city, int seed)
+        private static City connectStreets(City city, Random r)
         {
-            Random r = new Random(seed);
             int[] emptyRows = city.getEmptyRowNumbers();
 
             // Iterate through the array of emptyRows
@@ -134,7 +144,7 @@ namespace City
         /// Creates a city containing horizontal streets
         /// </summary>
         /// <param name="city">City containing streets</param>
-        private static City fillHorizontalStreets(int width, int height, int seed)
+        private static City fillHorizontalStreets(int width, int height, Random r)
         {
             City city = new City(width, height);
 
@@ -153,7 +163,7 @@ namespace City
             }
 
             // Return the city
-            return connectStreets(city, seed);
+            return connectStreets(city, r);
         }
 
         /// <summary>
@@ -163,9 +173,9 @@ namespace City
         /// <param name="height">Height of the city</param>
         /// <param name="seed">Seed for generation</param>
         /// <returns>Generated city</returns>
-        private static City initiateMap(int width, int height, int seed)
+        private static City initiateMap(int width, int height, Random r)
         {
-            return fillHorizontalStreets(width, height, seed);
+            return fillHorizontalStreets(width, height, r);
         }
 
         /// <summary>

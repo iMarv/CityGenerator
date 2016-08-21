@@ -9,11 +9,22 @@ namespace City
 {
     public class CityGenerator
     {
+        /// <summary>
+        /// Default city generation configuration
+        /// </summary>
         private static readonly Dictionary<string, int> buildingsDefaultConfig = new Dictionary<string, int>()
         {
-            {"Hospital", 50 },
-            {"Office", 25 }
+            {"Hospital", 10 },
+            {"PoliceStation", 10 },
+            {"Office", 80 },
+            {"School", 15 }
         };
+
+        /// <summary>
+        /// Range the random number generator should search for
+        /// A small value will allow more rare buildings to spawn
+        /// </summary>
+        private static readonly int generatorRange = 1000;
 
         /// <summary>
         /// Generates a city
@@ -22,17 +33,83 @@ namespace City
         /// <param name="height">Height of the map</param>
         /// <param name="seed">Seed for generating, defaults to 14091994</param>
         /// <returns>City object</returns>
-        public static City BuildCity(int width, int height, int seed = 14091994)
+        public static City BuildCity(int width, int height, int seed, Dictionary<string, int> config = null)
         {
             height = sanitizeHeight(height);
             width = width < 4 ? 4 : width;
             Random r = new Random(seed);
-            return initiateMap(width, height, r);
+
+            City result = initiateMap(width, height, r);
+
+            return convertBuildings(result, config == null ? buildingsDefaultConfig : config, r);
         }
 
-        private static City addSpecialBuildings(City city, Dictionary<string, int> config)
+        /// <summary>
+        /// Converts appartments into different builldings using a config and a random number generator
+        /// </summary>
+        /// <param name="city">City to modify</param>
+        /// <param name="config">Config containing generation information</param>
+        /// <param name="r">Random number generator</param>
+        /// <returns>Modified city</returns>
+        private static City convertBuildings(City city, Dictionary<string, int> config, Random r)
         {
-            
+            City result = city;
+            List<Appartment> convertableAppartments = city.Where(s => s is Appartment).Select(s => (Appartment)s).ToList<Appartment>();
+            convertableAppartments.ForEach(a => result.Add(randomBuilding(config, a, r, result)));
+
+            return result;
+        }
+
+        /// <summary>
+        /// Generates a random building for a position
+        /// </summary>
+        /// <param name="config">Config containing generation information</param>
+        /// <param name="originalAppartment">Appartment that will be replaced</param>
+        /// <param name="r">Random number generator</param>
+        /// <param name="city">City the building will be placed in</param>
+        /// <returns>Random new building object. If random cases to not fullfill any cases, the original appartment is being returned</returns>
+        private static Square randomBuilding(Dictionary<string, int> config, Appartment originalAppartment, Random r, City city)
+        {
+            Building result = null;
+            // Iterate through all configElements ordered by their values
+            foreach (KeyValuePair<string, int> configElement in config.OrderBy(key => -key.Value))
+            {
+                if (r.Next(0, generatorRange) <= configElement.Value)
+                {
+                    result = getBuilding(originalAppartment, configElement.Key, city);
+                }
+            }
+
+            if (result == null)
+                return originalAppartment;
+            else
+                return result;
+        }
+
+        /// <summary>
+        /// Creates a new building at the position of another building
+        /// </summary>
+        /// <param name="originalAppartment">Original appartment that shall be replaced</param>
+        /// <param name="key">Key of the new building</param>
+        /// <param name="city">City in which the building will be placed</param>
+        /// <returns>Building according to key</returns>
+        private static Building getBuilding(Appartment originalAppartment, string key, City city)
+        {
+            int x = originalAppartment.X;
+            int y = originalAppartment.Y;
+            switch (key)
+            {
+                case "Hospital":
+                    return new Hospital(x, y, city);
+                case "Office":
+                    return new Office(x, y, city);
+                case "PoliceStation":
+                    return new PoliceStation(x, y, city);
+                case "School":
+                    return new School(x, y, city);
+                default:
+                    return originalAppartment;
+            }
         }
 
         /// <summary>
@@ -139,7 +216,7 @@ namespace City
 
             return mergeBuildings(city);
         }
-        
+
         /// <summary>
         /// Creates a city based on horizontal streets
         /// </summary>

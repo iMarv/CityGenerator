@@ -105,7 +105,7 @@ namespace City
         /// Connects horizontal streets of a city
         /// </summary>
         /// <param name="city">City to connect streets of</param>
-        /// <param name="seed">Seed for random</param>
+        /// <param name="r">Random number generator</param>
         /// <returns>Modified city</returns>
         private static City connectStreets(City city, Random r)
         {
@@ -139,11 +139,14 @@ namespace City
 
             return mergeBuildings(city);
         }
-
+        
         /// <summary>
-        /// Creates a city containing horizontal streets
+        /// Creates a city based on horizontal streets
         /// </summary>
-        /// <param name="city">City containing streets</param>
+        /// <param name="width">Width of the city</param>
+        /// <param name="height">Height of the city</param>
+        /// <param name="r">Random number generator</param>
+        /// <returns>City consisting of horizontal lines</returns>
         private static City fillHorizontalStreets(int width, int height, Random r)
         {
             City city = new City(width, height);
@@ -171,7 +174,7 @@ namespace City
         /// </summary>
         /// <param name="width">Width of the city</param>
         /// <param name="height">Height of the city</param>
-        /// <param name="seed">Seed for generation</param>
+        /// <param name="r">Random number generator</param>
         /// <returns>Generated city</returns>
         private static City initiateMap(int width, int height, Random r)
         {

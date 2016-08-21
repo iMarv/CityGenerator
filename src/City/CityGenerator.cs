@@ -38,6 +38,7 @@ namespace City
             city.Where(s => s is Street)
                 // Cast these squares into streets
                 .Select(s => (Street)s)
+                // Gather squares which are two squares next to each other
                 .Where(s => isRightTile(s) ^ isLeftTile(s))
                 // Turn into list
                 .ToList<Street>()

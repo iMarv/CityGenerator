@@ -1,4 +1,5 @@
 ﻿using City.BuildingTypes;
+using City.SquareTypes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -42,7 +43,36 @@ namespace City
                 .ToList<Street>()
                 // For every object in the list, add an appartment to the city, overwriting the original streets
                 .ForEach(s => result.AddRange(new List<Square>() { new Appartment(s.X, s.Y, result), new Appartment(s.X + (isRightTile(s) ? -1 : 1), s.Y, result) }));
+            return addParks(result);
+        }
+
+        /// <summary>
+        /// Replaces appartments in city that are enclosed by only buildings
+        /// </summary>
+        /// <param name="city">City to modify</param>
+        /// <returns>Modified city</returns>
+        private static City addParks(City city)
+        {
+            City result = city;
+            city.Where(s => isSurroundedByBuildings(s) && s is Building).Select(s => (Appartment)s).ToList<Appartment>().ForEach(a => result.Add(new Park(a.X, a.Y, result)));
             return result;
+        }
+        
+        /// <summary>
+        /// Checks if a Square is surrounded by buildings
+        /// </summary>
+        /// <param name="s">Square to check</param>
+        /// <returns>True if surrounden by only buildings, false if not</returns>
+        private static bool isSurroundedByBuildings(Square s)
+        {
+            return s.GetAbove() is Building &&          // N
+                s.GetAbove().GetRight() is Building &&  // NO
+                s.GetRight() is Building &&             // O
+                s.GetRight().GetBelow() is Building &&  // SO
+                s.GetBelow() is Building &&             // S
+                s.GetBelow().GetLeft() is Building &&   // SW
+                s.GetLeft() is Building &&              // W
+                s.GetLeft().GetAbove() is Building;
         }
 
         /// <summary>

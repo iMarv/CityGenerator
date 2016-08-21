@@ -29,10 +29,11 @@ namespace City
         /// <summary>
         /// Generates a city
         /// </summary>
-        /// <param name="width">Width of the map</param>
-        /// <param name="height">Height of the map</param>
-        /// <param name="seed">Seed for generating, defaults to 14091994</param>
-        /// <returns>City object</returns>
+        /// <param name="width">Width of the city</param>
+        /// <param name="height">Height of the city</param>
+        /// <param name="seed">Seed for city generation</param>
+        /// <param name="config">Config for building generation</param>
+        /// <returns>Generated city object</returns>
         public static City BuildCity(int width, int height, int seed, Dictionary<string, int> config = null)
         {
             height = sanitizeHeight(height);

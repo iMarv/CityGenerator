@@ -4,7 +4,7 @@ using Xunit;
 
 namespace CityTests
 {
-    public class CityTest
+    public class CityGeneratorTests
     {
     }
 }

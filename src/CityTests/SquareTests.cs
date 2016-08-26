@@ -23,5 +23,12 @@ namespace CityTests
             Hospital a = new Hospital(1, 1, null);
             Assert.Equal("H", a.ToString());
         }
+
+        [Fact]
+        public void OfficeToStringTest()
+        {
+            Office a = new Office(1, 1, null);
+            Assert.Equal(".", a.ToString());
+        }
     }
 }

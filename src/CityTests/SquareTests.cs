@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Xunit;
 using City.BuildingTypes;
 using City;
+using City.SquareTypes;
 
 namespace CityTests
 {
@@ -43,6 +44,13 @@ namespace CityTests
         {
             School a = new School(1, 1, null);
             Assert.Equal("S", a.ToString());
+        }
+
+        [Fact]
+        public void ParkToStringTest()
+        {
+            Park a = new Park(1, 1, null);
+            Assert.Equal("*", a.ToString());
         }
     }
 }

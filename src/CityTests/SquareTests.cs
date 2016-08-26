@@ -52,5 +52,12 @@ namespace CityTests
             Park a = new Park(1, 1, null);
             Assert.Equal("*", a.ToString());
         }
+
+        [Fact]
+        public void StreetToStringTest()
+        {
+            Street a = new Street(1, 1, null);
+            Assert.Equal("#", a.ToString());
+        }
     }
 }

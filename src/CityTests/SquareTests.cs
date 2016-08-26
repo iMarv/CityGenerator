@@ -37,5 +37,12 @@ namespace CityTests
             PoliceStation a = new PoliceStation(1, 1, null);
             Assert.Equal("P", a.ToString());
         }
+
+        [Fact]
+        public void SchoolToStringTest()
+        {
+            School a = new School(1, 1, null);
+            Assert.Equal("S", a.ToString());
+        }
     }
 }

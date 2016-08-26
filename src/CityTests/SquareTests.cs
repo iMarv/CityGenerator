@@ -16,5 +16,12 @@ namespace CityTests
             Appartment a = new Appartment(1, 1, null);
             Assert.Equal("O", a.ToString());
         }
+
+        [Fact]
+        public void HospitalToStringTest()
+        {
+            Hospital a = new Hospital(1, 1, null);
+            Assert.Equal("H", a.ToString());
+        }
     }
 }

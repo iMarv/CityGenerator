@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace City
 {
-    class Street : Square
+    public class Street : Square
     {
         public Street(int x, int y, City parent) : base('#', x, y, parent) { }
     }

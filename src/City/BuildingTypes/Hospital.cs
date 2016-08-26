@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace City.BuildingTypes
 {
-    class Hospital : Building
+    public class Hospital : Building
     {
         public Hospital(int x, int y, City parent) : base('H', x, y, parent) { }
     }

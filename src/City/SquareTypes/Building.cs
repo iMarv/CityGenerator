@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace City
 {
-    abstract class Building : Square
+    public abstract class Building : Square
     {
         /// <summary>
         /// Constructor

@@ -10,8 +10,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		global.json = global.json
 	EndProjectSection
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Pizza", "src\Pizza\Pizza.xproj", "{1F91D814-761B-476D-9365-BD55BEE09AED}"
-EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "City", "src\City\City.xproj", "{70148F5B-0977-4A83-A9BF-A6EB8E495558}"
 EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "CityTests", "src\CityTests\CityTests.xproj", "{A682041C-DC08-4F1F-B8CC-8FF4E05A110E}"
@@ -22,10 +20,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{1F91D814-761B-476D-9365-BD55BEE09AED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1F91D814-761B-476D-9365-BD55BEE09AED}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1F91D814-761B-476D-9365-BD55BEE09AED}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1F91D814-761B-476D-9365-BD55BEE09AED}.Release|Any CPU.Build.0 = Release|Any CPU
 		{70148F5B-0977-4A83-A9BF-A6EB8E495558}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{70148F5B-0977-4A83-A9BF-A6EB8E495558}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{70148F5B-0977-4A83-A9BF-A6EB8E495558}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -39,7 +33,6 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{1F91D814-761B-476D-9365-BD55BEE09AED} = {F21E9A1C-59F3-4675-BDE0-0A497184BF94}
 		{70148F5B-0977-4A83-A9BF-A6EB8E495558} = {F21E9A1C-59F3-4675-BDE0-0A497184BF94}
 		{A682041C-DC08-4F1F-B8CC-8FF4E05A110E} = {F21E9A1C-59F3-4675-BDE0-0A497184BF94}
 	EndGlobalSection

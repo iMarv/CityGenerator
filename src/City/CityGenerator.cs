@@ -235,7 +235,7 @@ namespace City
                 // If this is the first row or the row is divisible by 3 without a rest
                 if (row == 0 || row % 3 == 0)
                 {
-                    // Add a street over the full with of the city
+                    // Add a street over the full width of the city
                     for (int column = 0; column < width; column++)
                     {
                         city.Add(new Street(column, row, city));
